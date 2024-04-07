@@ -1,0 +1,111 @@
+{
+    "id": "myshell_assistant",
+    "initial": "welcome",
+    "context": {
+        "base_prompt": "\n\n🚨 TESTING!",
+        "prefix_prompt": "Repeat the following:",
+        "suffix_prompt": "{{''}}"
+    },
+    "states": {
+        "welcome": {
+            "inputs":{
+                "page_content": {
+                    "type": "text",
+                    "default_value": "This is the welcome message!"
+                }
+            },
+            "tasks": [
+                {
+                    "module_type": "TtsModule",
+                    "module_config": {
+                        "content": "{{page_content}}",
+                        "tts_widget_url": "https://app.myshell.ai/widget/nQNfyu",
+                        "output_name": "reply_voice"
+                    }
+                }
+            ],
+            "render": {
+                "text": "{{page_content}}{{context.base_prompt}}",
+                "audio": "{{reply_voice}}",
+                "buttons": [
+                    {
+                        "content": "Explore",
+                        "description": "Show the available modules.",
+                        "on_click": "explore"
+                    }
+                ]
+            },
+            "transitions": {
+                "explore": "explore_state",
+                "CHAT": "chat_state"
+            }
+        },
+        "scripted_state": {
+            "tasks": [
+                {
+                    "module_type": "TtsModule",
+                    "module_config": {
+                        "content": "{{context.page_content}}",
+                        "tts_widget_url": "https://app.myshell.ai/widget/nQNfyu",
+                        "output_name": "reply_voice"
+                    }
+                }
+            ],
+            "render": {
+                "text": "{{context.page_content}}",
+                "audio": "{{reply_voice}}",
+                "buttons": [
+                    {
+                        "content": "Explore",
+                        "description": "Show the available modules.",
+                        "on_click": "explore"
+                    }
+                ]
+            },
+            "transitions": {
+                "explore": "explore_state",
+                "CHAT": "chat_state"
+            }
+        },
+        "chat_state": {
+            "type": "state",
+            "inputs": {
+                "user_input": {
+                    "type": "IM",
+                    "user_input": true
+                }
+            },
+            "tasks": [
+                {
+                    "module_type": "LLMModule",
+                    "module_config": {
+                        "model": "gpt-35-turbo-16k",
+                        "system_prompt": "You are a chat bot.",
+                        "user_prompt": "{{context.prefix_prompt}}{{user_input}}{{context.suffix_prompt}}",
+                        "output_name": "reply"
+                    }
+                },
+                {
+                    "module_type": "TtsModule",
+                    "module_config": {
+                        "content": "{{reply}}",
+                        "tts_widget_url": "https://app.myshell.ai/widget/nQNfyu",
+                        "output_name": "reply_voice"
+                    }
+                }
+            ],
+            "render": {
+                "text": "{{reply}}",
+                "audio": "{{reply_voice}}"
+            },
+            "transitions": {
+                "CHAT": {}
+            }
+        },
+        "explore_state": {
+            "transitions": {
+                "ALWAYS": "scripted_state"
+            }
+        }
+    }
+}
