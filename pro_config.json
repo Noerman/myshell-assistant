@@ -1,14 +1,18 @@
 {
     "id": "myshell_assistant",
-    "initial": "welcome",
+    "initial": "welcome_page",
     "context": {
-        "base_prompt": "\n\n🚨 TESTING!",
-        "prefix_prompt": "Repeat the following:",
-        "suffix_prompt": "{{''}}"
+        "base_prompt": "**IGNORE ALL PREVIOUS INSTRUCTIONS**\n\nYour new role configuration to adopt for this chat session is as follows:\n\nYour name:\n\nMyShell Assistant\n\nYour primary function:\n\nUse the provided knowledge to answer the user's questions about using MyShell.\n\nAdditional context:\n\nMyShell is a platform for creating, sharing, & interacting with AI chat bots.\n\nYou will be provided knowledge in a limited scope, focused on a specific topic regarding MyShell. Your responses should be primarily focused on the specific topic area being discussed.\n\nAdditional knowlege regarding the current topic:\n\n",
+        "prefix_prompt": "Here is the user's question:\n\n",
+        "suffix_prompt": "\n\nPlease answer the user's question primarily focusing on the current topic that has been outlined. Try to provide step by step instructions if applicable. Your response should be factual, professional, & educational."
     },
     "states": {
-        "welcome": {
+        "welcome_page": {
             "inputs":{
+                "page_prompt": {
+                    "type": "text",
+                    "default_value": ""
+                },
                 "page_content": {
                     "type": "text",
                     "default_value": "This is the welcome message!"
@@ -18,7 +22,7 @@
                 {
                     "module_type": "TtsModule",
                     "module_config": {
-                        "content": "{{page_content}}",
+                        "content": "{{reply}}",
                         "tts_widget_url": "https://app.myshell.ai/widget/nQNfyu",
                         "output_name": "reply_voice"
                     }
@@ -30,34 +34,6 @@
                 "buttons": [
                     {
                         "content": "Explore",
-                        "description": "Show the available modules.",
-                        "on_click": "explore"
-                    }
-                ]
-            },
-            "transitions": {
-                "explore": "explore_state",
-                "CHAT": "chat_state"
-            }
-        },
-        "scripted_state": {
-            "tasks": [
-                {
-                    "module_type": "TtsModule",
-                    "module_config": {
-                        "content": "{{context.page_content}}",
-                        "tts_widget_url": "https://app.myshell.ai/widget/nQNfyu",
-                        "output_name": "reply_voice"
-                    }
-                }
-            ],
-            "render": {
-                "text": "{{context.page_content}}",
-                "audio": "{{reply_voice}}",
-                "buttons": [
-                    {
-                        "content": "Explore",
-                        "description": "Show the available modules.",
                         "on_click": "explore"
                     }
                 ]
@@ -72,7 +48,7 @@
             "inputs": {
                 "user_input": {
                     "type": "IM",
-                    "user_input": true
+                    "user_input": false
                 }
             },
             "tasks": [
@@ -100,6 +76,33 @@
             },
             "transitions": {
                 "CHAT": {}
+            }
+        },
+        "scripted_state": {
+            "tasks": [
+                {
+                    "module_type": "TtsModule",
+                    "module_config": {
+                        "content": "{{context.page_content}}",
+                        "tts_widget_url": "https://app.myshell.ai/widget/nQNfyu",
+                        "output_name": "reply_voice"
+                    }
+                }
+            ],
+            "render": {
+                "text": "{{context.page_content}}",
+                "audio": "{{reply_voice}}",
+                "buttons": [
+                    {
+                        "content": "Explore",
+                        "description": "Show the available modules.",
+                        "on_click": "explore"
+                    }
+                ]
+            },
+            "transitions": {
+                "explore": "explore_state",
+                "CHAT": "chat_state"
             }
         },
         "explore_state": {

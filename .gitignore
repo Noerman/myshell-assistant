@@ -1,0 +1,6 @@
+/local
+/scraps.json
+/md-tool/build
+/md-tool/md_tool.egg-info
+/md-tool/tests.py
+/md-tool/md_tool/__pycache__

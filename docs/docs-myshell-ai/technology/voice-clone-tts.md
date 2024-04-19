@@ -1,0 +1,7 @@
+# Voice Clone/TTS
+
+Text-to-speech(TTS) and voice cloning technologies are transforming the way we interact with AI-native content. Text-to-speech converts written text into spoken words, enabling users to access information audibly. Voice cloning, on the other hand, replicates a person's unique vocal characteristics, creating a personalized and realistic audio experience.
+
+In the past, text-to-speech (TTS) technology was not only expensive but also slow, making it difficult for creators to access and utilize it effectively. Voice cloning, which required an extensive amount of voice samples (up to 100 hours), presented an even greater challenge for individuals looking to create their own unique voices. These limitations made it nearly impossible for creators to develop personalized and engaging audio experiences, leaving them reliant on generic, robotic-sounding voices that lacked the warmth and expressiveness of human speech.
+
+The MyShell research team has made significant strides in overcoming these challenges, reducing costs by 99% and requiring only a 1-minute voice sample for voice cloning. This breakthrough has opened up a world of possibilities for creators, allowing them to use any voice they desire and bring their AI companions to life with vivid, realistic speech.
