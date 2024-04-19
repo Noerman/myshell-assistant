@@ -4,7 +4,7 @@ It scrapes the docs.myshell.ai GitBook into cleaned up markdown files for me to 
 
 You can change the url at the top of update-docs.py to try other pages. It will create a new directory based on the url for you inside of ./docs.
 
-If you would like to see it in usage for yourself, please execute the following:
+If you would like to see it in usage for yourself:
 
 From the root directory of this repo (i.e. `../` from this readme) execute the following:
 

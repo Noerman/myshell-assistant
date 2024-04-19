@@ -2,9 +2,7 @@
 
 
 
-# url = 'https://docs.myshell.ai'
-
-url = 'https://developer.android.com/training/wearables/wff'
+url = 'https://docs.myshell.ai'
 
 
 
